@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: 'postgres'
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ReallyStrongPassword123
+    ports: 
+      - '5432:5432'
+    volumes:
+      - emma-challenge-db:/var/lib/postgresql/data
+
+  app:
+    container_name: 'emma-challenge'
+    build: .
+    depends_on:
+      - db
+    command: ['./scripts/wait-for-it.sh', 'db:5432', '--', './scripts/start.sh']
+    restart: on-failure
+    environment:
+      - ENV=develop
+      - BASE_PATH=/emma
+      - DB_HOST=db
+      - DB_PASSWORD=ReallyStrongPassword123
+      - DB_USER=postgres
+      - DB_SCHEMA=postgres
+    ports:
+      - '3000:3000'
+      - '9229:9229'
+
+volumes:
+  emma-challenge-db:
