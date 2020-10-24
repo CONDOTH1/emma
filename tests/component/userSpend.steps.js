@@ -1,9 +1,9 @@
 /* eslint-disable prefer-arrow-callback */
 const {
   AfterAll, When, Then, Given, Before,
-} = require('cucumber');
+} = require('@cucumber/cucumber');
 const { expect } = require('chai');
-const rp = require('request-promise');
+const fetch = require('node-fetch');
 const waitForEndpoint = require('../utils/waitForEndpoint');
 const responses = require('../utils/responses');
 
@@ -14,7 +14,7 @@ const TEST_URL = process.env.TEST_URL || 'http://localhost:3000';
 
 Before(async () => {
   const opts = {
-    uri: `${TEST_URL}/emma/healthcheck/ready`, // eslint-disable-line no-process-env
+    url: `${TEST_URL}/emma/healthcheck/ready`, // eslint-disable-line no-process-env
     method: 'GET',
   };
   await waitForEndpoint(opts, beforeAfterTimeout.timeout);
@@ -35,24 +35,18 @@ Given('I have the following to data, {string}', function (toDate) {
 });
 
 When('I call {string} {string}', async function (method, path) {
-  this.response = await rp({
-    url: `${process.env.TEST_URL || 'http://localhost:3000'}${path}`, // eslint-disable-line no-process-env
-    headers: this.headers,
-    body: this.body,
-    qs: this.qs,
-    form: this.form,
-    method,
-    resolveWithFullResponse: true,
-    json: true,
-    simple: false,
-  });
+  const url = new URL(`${process.env.TEST_URL || 'http://localhost:3000'}${path}`);
+  url.search = new URLSearchParams(this.qs || {}).toString();
+  const response = await fetch(url, { method });
+  this.statusCode = response.status;
+  this.responseBody = await response.json();
 });
 
 Then('I should get the expected status code {int}', function (statusCode) {
-  expect(this.response.statusCode).to.eql(statusCode);
+  expect(this.statusCode).to.eql(statusCode);
 });
 
 Then('{string} response body should match their expected {string}', function (name, responseType) {
   const expectedResponse = responses[name][responseType];
-  expect(this.response.body).to.eql(expectedResponse);
+  expect(this.responseBody).to.eql(expectedResponse);
 });

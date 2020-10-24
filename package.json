@@ -1,43 +1,47 @@
 {
   "name": "emma",
   "version": "1.0.0",
-  "description": "",
+  "description": "Challenge to fetch insights for user spending",
+  "repository": "https://github.com/CONDOTH1/emma",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/.bin/eslint --max-warnings=0 .",
     "start": "export DEBUG=EMMA_LOGS && nodemon ./src/app.js",
+    "docker:test": "docker-compose -f docker-compose.yaml -f docker-compose.test.yaml up --abort-on-container-exit --exit-code-from app",
     "db:migrate": "export DEBUG=EMMA_LOGS && npx sequelize-cli db:migrate",
     "db:migration:undo": "export DEBUG=EMMA_LOGS && npx sequelize-cli db:migrate:undo:all",
     "db:seed:all": "npx sequelize-cli db:seed:all",
     "db:seed:undo": "npx sequelize-cli db:seed:undo:all",
     "db:teardown": "npm run db:seed:undo && npm run db:migration:undo",
     "db:buildup": "npm run db:migrate && npm run db:seed:all",
-    "test:component": "export DEBUG=EMMA_LOGS && ./node_modules/.bin/cucumber-js --exit ./tests/**/*.feature -r ./tests/**/*.steps.js"
+    "test:component": "export DEBUG=EMMA_LOGS && ./node_modules/.bin/cucumber-js --exit ./tests/**/*.feature -r ./tests/**/*.steps.js",
+    "test:watch": "./node_modules/.bin/nodemon -e js,json,feature --exec npm run test:component"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "debug": "^4.2.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.6",
     "pg": "^8.4.1",
     "pg-hstore": "^2.3.3",
+    "pg-native": "^3.0.0",
     "sequelize": "^6.3.5",
     "uuid": "^8.3.1"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^7.0.0-rc.0",
     "chai": "^4.2.0",
-    "cucumber": "^7.0.0-rc.0",
     "eslint": "^7.11.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "mocha": "^8.2.0",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.6",
     "sequelize-cli": "^6.2.0"
   }
 }

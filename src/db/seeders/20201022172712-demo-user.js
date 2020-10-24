@@ -23,8 +23,8 @@ module.exports = {
       },
       {
         id: '45ed02f6-c873-46b0-b8e3-68e262f77e4b',
-        firstName: 'John',
-        lastName: 'Dillinger',
+        firstName: 'Michael',
+        lastName: 'Collins',
       },
     ]);
 

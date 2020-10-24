@@ -17,12 +17,12 @@ services:
     build: .
     depends_on:
       - db
-    command: ['./scripts/wait-for-it.sh', 'db:5432', '--', './scripts/start.sh']
+    command: ['./scripts/wait-for-it.sh', 'db:5432', '--', './scripts/start.sh', 'npm run test:watch']
     restart: on-failure
     environment:
       - ENV=develop
       - BASE_PATH=/emma
-      - DB_HOST=db
+      - DB_HOST=postgres
       - DB_PASSWORD=ReallyStrongPassword123
       - DB_USER=postgres
       - DB_SCHEMA=postgres

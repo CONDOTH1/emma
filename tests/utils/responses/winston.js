@@ -43,4 +43,43 @@ module.exports = {
       Merchant: { displayName: 'Ministry Of Truth' },
     },
   ],
+  twoDays: [
+    {
+      merchantId: 'a0a92ac5-39b9-4368-80fc-74af00af49a5',
+      userId: '7a1e6086-89d6-4e7c-8a50-fdc2720ecf4a',
+      amount: 8343,
+      pctRank: 0.5,
+      Merchant: { displayName: 'Coffee Shop' },
+    },
+    {
+      merchantId: 'd5ad6709-a954-4fcf-8bac-1658d2aa6e86',
+      userId: '7a1e6086-89d6-4e7c-8a50-fdc2720ecf4a',
+      amount: 5182,
+      pctRank: 0,
+      Merchant: { displayName: 'Clothes Shop' },
+    },
+  ],
+  fourDays: [
+    {
+      merchantId: '99b3e175-f2ff-491b-8d0b-ca2d9feeca65',
+      userId: '7a1e6086-89d6-4e7c-8a50-fdc2720ecf4a',
+      amount: 12189,
+      pctRank: 1,
+      Merchant: { displayName: 'Newsagent' },
+    },
+    {
+      merchantId: 'a0a92ac5-39b9-4368-80fc-74af00af49a5',
+      userId: '7a1e6086-89d6-4e7c-8a50-fdc2720ecf4a',
+      amount: 8343,
+      pctRank: 0.3333333333333333,
+      Merchant: { displayName: 'Coffee Shop' },
+    },
+    {
+      merchantId: 'd5ad6709-a954-4fcf-8bac-1658d2aa6e86',
+      userId: '7a1e6086-89d6-4e7c-8a50-fdc2720ecf4a',
+      amount: 5182,
+      pctRank: 0,
+      Merchant: { displayName: 'Clothes Shop' },
+    },
+  ],
 };

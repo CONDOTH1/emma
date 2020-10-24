@@ -1,4 +1,4 @@
-const request = require('request-promise');
+const fetch = require('node-fetch');
 const logger = require('../../src/utils/logger');
 
 /**
@@ -19,7 +19,7 @@ function _sleep(waitMs) {
  * @returns {Promise<*>|void} The return value of the request() module, if successful.
  */
 function waitForEndpoint(requestOptions, timeoutMs = 30000, waitMs = 2000) {
-  const uri = requestOptions.uri || requestOptions.url || requestOptions;
+  const { url, ...reqParams } = requestOptions;
   let isPromiseFulfilled = false;
 
   // eslint-disable-next-line no-async-promise-executor
@@ -28,7 +28,7 @@ function waitForEndpoint(requestOptions, timeoutMs = 30000, waitMs = 2000) {
     setTimeout(() => {
       if (!isPromiseFulfilled) {
         isPromiseFulfilled = true;
-        const err = new Error(`Timeout: Waited for URI "${uri}" for ${timeoutMs}ms without luck.`);
+        const err = new Error(`Timeout: Waited for URI "${url}" for ${timeoutMs}ms without luck.`);
         reject(err);
       }
     }, timeoutMs || 0);
@@ -36,8 +36,8 @@ function waitForEndpoint(requestOptions, timeoutMs = 30000, waitMs = 2000) {
     // Repeat the request until it returns a 2xx status code.
     do {
       try {
-        logger('%s', `Trying URI "${uri}"...`);
-        const result = await request(requestOptions); // eslint-disable-line no-await-in-loop
+        logger('%s', `Trying URI "${url}"...`);
+        const result = await fetch(url, reqParams); // eslint-disable-line no-await-in-loop
         isPromiseFulfilled = true;
         resolve(result);
       } catch (err) {
