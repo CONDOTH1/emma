@@ -7,8 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/.bin/eslint --max-warnings=0 .",
-    "start": "export DEBUG=EMMA_LOGS && nodemon ./src/app.js",
+    "start": "export DEBUG=EMMA_LOGS && node ./src/app.js",
     "docker:test": "docker-compose -f docker-compose.yaml -f docker-compose.test.yaml up --abort-on-container-exit --exit-code-from app",
+    "docker:start": "docker-compose up",
     "db:migrate": "export DEBUG=EMMA_LOGS && npx sequelize-cli db:migrate",
     "db:migration:undo": "export DEBUG=EMMA_LOGS && npx sequelize-cli db:migrate:undo:all",
     "db:seed:all": "npx sequelize-cli db:seed:all",
@@ -21,12 +22,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "config-check": "^1.1.0",
     "debug": "^4.2.0",
     "express": "^4.17.1",
+    "express-openapi-validator": "^4.3.0",
     "pg": "^8.4.1",
     "pg-hstore": "^2.3.3",
-    "pg-native": "^3.0.0",
     "sequelize": "^6.3.5",
+    "stoppable": "^1.1.0",
     "uuid": "^8.3.1"
   },
   "devDependencies": {

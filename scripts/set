@@ -1,0 +1,5 @@
+export DB_USER='thadycondon'
+export DB_PASSWORD='ReallyStrongPassword123'
+export DB_SCHEMA='emma'
+export DB_HOST='localhost'
+export DB_PORT=5432

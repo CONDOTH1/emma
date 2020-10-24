@@ -1,7 +1,6 @@
-FROM node:12.7-alpine
+FROM node:12.16.1-alpine
 
 RUN npm set progress=false
-RUN apk add --no-cache git
 RUN apk add --no-cache bash
 
 EXPOSE 3000

@@ -50,3 +50,23 @@ Then('{string} response body should match their expected {string}', function (na
   const expectedResponse = responses[name][responseType];
   expect(this.responseBody).to.eql(expectedResponse);
 });
+
+Then('The response body should be an empty array', function () {
+  const expectedResponse = [];
+  expect(this.responseBody).to.eql(expectedResponse);
+});
+
+Then('I get the expected error from the swagger validator for {string} and {string}', function (attribute, type) {
+  const paramType = attribute === 'userId' ? 'params' : 'query';
+  const expectedError = {
+    message: `request.${paramType}.${attribute} should match format "${type}"`,
+    errors: [
+      {
+        path: `.${paramType}.${attribute}`,
+        message: `should match format "${type}"`,
+        errorCode: 'format.openapi.validation',
+      },
+    ],
+  };
+  expect(this.responseBody).to.eql(expectedError);
+});

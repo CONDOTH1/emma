@@ -1,5 +1,6 @@
 const sequelize = require('sequelize');
 const db = require('../db/models');
+const logger = require('../utils/logger');
 
 /**
  * Accepts params to construct sql query via sequelize to calculate the amount and percentile of
@@ -43,7 +44,7 @@ const getUserSpend = async (userId, fromDate, toDate) => {
     });
     return userTransactionData.filter((trxObj) => trxObj.userId === userId);
   } catch (error) {
-    console.log('error: ', error);
+    logger('%s', error);
     throw error;
   }
 };

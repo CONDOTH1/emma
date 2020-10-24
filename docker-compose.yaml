@@ -26,6 +26,7 @@ services:
       - DB_PASSWORD=ReallyStrongPassword123
       - DB_USER=postgres
       - DB_SCHEMA=postgres
+      - DB_PORT=5432
     ports:
       - '3000:3000'
       - '9229:9229'

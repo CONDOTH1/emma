@@ -1,18 +1,22 @@
+const cc = require('config-check');
+
 module.exports = {
   development: {
-    username: process.env.DB_USER || 'thadycondon',
-    password: process.env.DB_PASSWORD || 'ReallyStrongPassword123',
-    database: process.env.DB_SCHEMA || 'emma',
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5432,
+    username: cc('DB_USER').required().exec(),
+    password: cc('DB_PASSWORD').required().exec(),
+    database: cc('DB_SCHEMA').required().exec(),
+    host: cc('DB_HOST').required().exec(),
+    port: cc('DB_PORT').required().exec(),
     dialect: 'postgres',
+    logging: false,
   },
   production: {
-    username: process.env.DB_USER || 'thadycondon',
-    password: process.env.DB_PASSWORD || 'ReallyStrongPassword123',
-    database: process.env.DB_SCHEMA || 'emma',
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5432,
+    username: cc('DB_USER').required().exec(),
+    password: cc('DB_PASSWORD').required().exec(),
+    database: cc('DB_SCHEMA').required().exec(),
+    host: cc('DB_HOST').required().exec(),
+    port: cc('DB_PORT').required().exec(),
     dialect: 'postgres',
+    logging: false,
   },
 };
