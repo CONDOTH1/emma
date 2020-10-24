@@ -1,14 +1,13 @@
 const express = require('express');
 const config = require('./config');
-const logger = require('./utils/logger');
 const usersRouter = require('./routers/users');
+const healthCheckRouter = require('./routers/healthcheck');
 
 const app = express();
 
 app.use(`/${config.name}`, usersRouter);
+app.use(`/${config.name}/healthcheck`, healthCheckRouter);
 
-// app.use(middlewares.defaultErrorHandler());
+const server = app.listen(config.port);
 
-app.listen(config.port, () => {
-  logger('%s', `Example app listening at http://localhost:${config.port}`);
-});
+module.exports = server;

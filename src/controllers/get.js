@@ -1,13 +1,22 @@
 const sequelize = require('sequelize');
 const db = require('../db/models');
 
+/**
+ * Accepts params to construct sql query via sequelize to calculate the amount and percentile of
+ * user spend by merchant over a given time period. Returns user spend by merchantId with percentile
+ * and merchant display name.
+ * @param {String} userId - unique user identifier
+ * @param {String} fromDate - date time
+ * @param {String} toDate - date time
+ * @returns {Promise<Array<Object>>}
+ */
 const getUserSpend = async (userId, fromDate, toDate) => {
   try {
     const userTransactionData = await db.Transactions.findAll({
       attributes: [
         'merchantId',
         'userId',
-        [sequelize.literal('sum(amount)'), 'amount'],
+        [sequelize.literal('CAST(SUM(amount) AS INTEGER)'), 'amount'],
         [sequelize.literal('PERCENT_RANK() OVER (PARTITION BY "merchantId" ORDER BY sum(amount))'), 'pctRank'],
       ],
       where: {

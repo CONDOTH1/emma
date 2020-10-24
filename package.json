@@ -12,7 +12,8 @@
     "db:seed:all": "npx sequelize-cli db:seed:all",
     "db:seed:undo": "npx sequelize-cli db:seed:undo:all",
     "db:teardown": "npm run db:seed:undo && npm run db:migration:undo",
-    "db:buildup": "npm run db:migrate && npm run db:seed:all"
+    "db:buildup": "npm run db:migrate && npm run db:seed:all",
+    "test:component": "export DEBUG=EMMA_LOGS && ./node_modules/.bin/cucumber-js --exit ./tests/**/*.feature -r ./tests/**/*.steps.js"
   },
   "author": "",
   "license": "ISC",
@@ -26,12 +27,17 @@
     "uuid": "^8.3.1"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "cucumber": "^7.0.0-rc.0",
     "eslint": "^7.11.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.21.5",
+    "mocha": "^8.2.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
     "sequelize-cli": "^6.2.0"
   }
 }
