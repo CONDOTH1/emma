@@ -28,7 +28,7 @@ This query will get the required attributes from the DB, it will sum the amounts
 ### Start the service WITHOUT docker
 
 - Set up and run an instance of postgres on your local machine
-- Set the required variables in the file `./scripts/set` and then run `source ./scripts/set` - this provide the necessary environment variables for the service to connect to the database.
+- Set the required variables in the file `./scripts/set` to match your current running postgres instance and then run `source ./scripts/set` - this provides the necessary environment variables for the service to connect your database.
 - To run the db migrations run `npm run db:migrate` - this will set up the necessary tables and associations
 - To seed the db with test data run `npm run db:seed:all` - updating the seed data will effect the tests which rely on this seed data.
 - The last two steps are also combine in `npm run db:buildup`
